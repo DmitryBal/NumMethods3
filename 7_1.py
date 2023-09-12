@@ -19,10 +19,11 @@ def eiler(x, x_n, y, h):
     return X, Y, Y_2
 
 
-def plot(x, y1, y2, title, label_1, label_2):
-    plt.plot(x, y1, label=label_1)
-    plt.plot(x, y2, label=label_2)
-    plt.title(title)
+def plot(x,_x, y1, y2,y3, y4):
+    plt.plot(x, y1, label='Метод Эйлера для h=0.1')
+    plt.plot(x, y2, label='Метод  Эйлеера с пересчетом для h=0.1')
+    plt.plot(_x, y3, label='Метод Эйлера для h=0.01')
+    plt.plot(_x, y4, label='Метод  Эйлеера с пересчетом для h=0.01')
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -43,15 +44,12 @@ if __name__ == '__main__':
     print(res, '\n')
     print(label2)
     print(res2, '\n')
-    plot(arr, res, res2, text, label1, label2)
     print('---------------------------')
     text = 'h = 0.01'
-    arr, res, res2 = eiler(x0, xn, y0, h2)
-    label1 = 'Метод Эйлера'
-    label2 = 'Метод Эйлера с пересчетом'
+    _arr, _res, _res2 = eiler(x0, xn, y0, h2)
     print(text)
     print(label1)
-    print(res, '\n')
+    print(_res, '\n')
     print(label2)
-    print(res2, '\n')
-    plot(arr, res, res2, text, label1, label2)
+    print(_res2, '\n')
+    plot(arr,_arr, res, res2,_res, _res2)

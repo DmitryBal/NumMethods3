@@ -11,26 +11,31 @@ def adams(x0, xn, y0, h):
     x = np.linspace(x0, xn, n+1)
     y = np.zeros(n+1)
     y[0] = y0
-
+    z = np.zeros(n+1)
+    z[0] = y0
     for i in range(3):
         k1 = h * f(x[i], y[i])
         k2 = h * f(x[i] + 0.5 * h, y[i] + 0.5 * k1)
         k3 = h * f(x[i] + 0.5 * h, y[i] + 0.5 * k2)
         k4 = h * f(x[i] + h, y[i] + k3)
         y[i+1] = y[i] + (1.0 / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
-
+        z[i+1] = z[i] + h*f(x[i], z[i])
     for i in range(3, n):
         y[i + 1] = y[i] + h * (55.0 * f(x[i], y[i]) - 59.0 * f(x[i - 1], y[i - 1]) + 37.0 * f(x[i - 2], y[i - 2]) -
                                9.0 * f(x[i - 3], y[i - 3])) / 24.0
+        z[i+1] = z[i] + h * (55.0 * f(x[i], z[i]) - 59.0 * f(x[i - 1], z[i - 1]) + 37.0 * f(x[i - 2], z[i - 2]) -
+                               9.0 * f(x[i - 3], z[i - 3])) / 24.0
 
-    return y
+    return y, z
 
 
-def plot(x, xn, y1, y2, h_1, h_2):
+def plot(x, xn, y1, y2,_y1,_y2, h_1, h_2):
     x_new1 = np.linspace(x, xn, int((xn - x) / h_1 + 1))
     x_new2 = np.linspace(x, xn, int((xn - x) / h_2 + 1))
-    plt.plot(x_new1, y1, label='h = 0.1')
-    plt.plot(x_new2, y2, label='h = 0.01')
+    plt.plot(x_new1, y1, label='Метод Рунге-Кутты h = 0.1')
+    plt.plot(x_new2, y2, label='Метод Рунге-Кутты h = 0.01')
+    plt.plot(x_new1, _y1, label='Метод Эйлера h = 0.1')
+    plt.plot(x_new2, _y2, label='Метод Эйлера h = 0.01')
     plt.title('Метод Адамса')
     plt.legend()
     plt.grid(True)
@@ -43,12 +48,12 @@ if __name__ == '__main__':
     b = 2.0
     h1 = 0.1
     h2 = 0.01
-    res = adams(x_0, b, y_0, h1)
+    res, _res = adams(x_0, b, y_0, h1)
     print(f'h = {h1}:')
     print(res)
     print('------------------------------------------------------')
     print(f'h = {h2}:')
-    res2 = adams(x_0, b, y_0, h2)
+    res2, _res2 = adams(x_0, b, y_0, h2)
     print(res2)
-    plot(x_0, b, res, res2, h1, h2)
+    plot(x_0, b, res, res2, _res, _res2, h1, h2)
 

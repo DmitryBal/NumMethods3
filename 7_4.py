@@ -26,15 +26,17 @@ def rungekutta(x0, y, x, z, h):
         Y[i] = y
         Z[i] = z
         print(f'Значение дифференциального уравнения в точке {round(x0,3)}:', y)
-    return Y
+    return Y, Z
 
 
-def plot(x, xn, y1, y2, h_1, h_2):
+def plot(x, xn, y1, y2,_y1, _y2, h_1, h_2):
     XNEW1 = np.linspace(x, xn, int((xn - x) / h_1 + 1))
     XNEW2 = np.linspace(x, xn, int((xn - x) / h_2 + 1))
-    plt.plot(XNEW1, y1, label='h = 0.1')
-    plt.plot(XNEW2, y2, label='h = 0.01')
-    plt.title('Метод Рунге-Кутты 4го порядка')
+    plt.plot(XNEW1, y1, label='y(x) при h = 0.1')
+    plt.plot(XNEW2, y2, label='y(x) при h = 0.01')
+    plt.plot(XNEW1, _y1, label="y'(x) при h = 0.1")
+    plt.plot(XNEW2, _y2, label="y'(x) при h = 0.01")
+    plt.title('Метод Рунге-Кутты 4го порядка для ОДУ 2го порядка')
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -48,8 +50,8 @@ if __name__ == '__main__':
     h1 = 0.1
     h2 = 0.01
     print(f'h = {h1}:')
-    res = rungekutta(x_0, y_0, b, z_0, h1)
+    res, _res = rungekutta(x_0, y_0, b, z_0, h1)
     print('------------------------------------------------------')
     print(f'h = {h2}:')
-    res2 = rungekutta(x_0, y_0, b, z_0, h2)
-    plot(x_0, b, res, res2, h1, h2)
+    res2, _res2 = rungekutta(x_0, y_0, b, z_0, h2)
+    plot(x_0, b, res, res2,_res, _res2, h1, h2)

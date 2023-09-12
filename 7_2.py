@@ -22,11 +22,13 @@ def rungekutta(x0, y, x, h):
     return Y
 
 
-def plot(x, xn, y1, y2, h_1, h_2):
+def plot(x, xn, y1, y2,y3, h_1, h_2, h_3):
     XNEW1 = np.linspace(x, xn, int((xn - x) / h_1 + 1))
     XNEW2 = np.linspace(x, xn, int((xn - x) / h_2 + 1))
+    XNEW3 = np.linspace(x, xn, int((xn - x) / h_3 + 1))
     plt.plot(XNEW1, y1, label='h = 0.1')
     plt.plot(XNEW2, y2, label='h = 0.01')
+    plt.plot(XNEW3, y3, label='h = 0.25')
     plt.title('Метод Рунге-Кутты 4го порядка')
     plt.legend()
     plt.grid(True)
@@ -39,9 +41,13 @@ if __name__ == '__main__':
     b = 2.0
     h1 = 0.1
     h2 = 0.01
+    h3 =0.25
     print(f'h = {h1}:')
     res = rungekutta(x_0, y_0, b, h1)
     print('------------------------------------------------------')
     print(f'h = {h2}:')
     res2 = rungekutta(x_0, y_0, b, h2)
-    plot(x_0, b, res, res2, h1, h2)
+    print('------------------------------------------------------')
+    print(f'h = {h3}:')
+    res3 = rungekutta(x_0, y_0, b, h3)
+    plot(x_0, b, res, res2,res3, h1, h2, h3)
