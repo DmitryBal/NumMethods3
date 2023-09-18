@@ -24,8 +24,8 @@ def fin_diff(y_a, y_b, a, b, h):
         mA[i, i+1] = 1.0 + 0.5*p(x[i])*h
         mA[i, i-1] = 1.0 - 0.5*p(x[i])*h
     Yn = np.linalg.solve(mA, mB)
-    _Y = [(Yn[i + 1] - Yn[i - 1]) / h for i in range(1, n - 1)]
-    print(_Y)
+    #_Y = [(Yn[i] - Yn[i-1]) / h for i in range(1,n)]
+    #print(_Y)
     return Yn
 
 
