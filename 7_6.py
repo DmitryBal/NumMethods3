@@ -16,8 +16,9 @@ def fin_diff(y_a, y_b, a, b, h):
     mA = np.zeros((n+1, n+1))
     mB = np.zeros(n+1)
     mA[0, 0] = 1.0
+    mA[0, 1] = -1.0
     mA[n, n] = 1.0
-    mB[0] = y_a
+    mB[0] = -y_a*h
     mB[n] = y_b
     for i in range(1, n):
         mA[i, i] = -2.0 + q(x[i])*np.power(h, 2)
