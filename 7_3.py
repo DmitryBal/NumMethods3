@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def f(x, y):
-    return (np.power(x, 2)*np.log(x) - y) / x
+    return (np.power(y, 2)*np.log(x) - y) / x
 
 
 def adams(x0, xn, y0, h):
